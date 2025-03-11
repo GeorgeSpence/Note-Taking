@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors =require('cors');
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json());
 const{ PrismaClient}= require ("@prisma/client");
 const { response } = require('express');
@@ -43,11 +44,11 @@ app.get('/get',async(req,res)=>{
 })
 app.post('/add', async (req, res) => {
     console.log(req.body);
-  const{title,body,date} = req.body.Note;
+  const{title,body,date} = req.body;
   if(!title||!body||!date)
     {
         res.status(200).json('All fields must be filled');
-        console.log('Error: Missing field')
+        console.log('Error: Missing field',title,body,date)
         return;
     }
     new_Note(title,body,date);
