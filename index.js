@@ -64,7 +64,7 @@ app.delete('/clear',async(req,res) => {
     });
 })
 app.delete('/delete',async(req,res) =>{
-   const{ id } = req.params.Note;
+   const{ id } = req.body.Note;
     const del = await prisma.note.delete({
         where: {id:parseInt(id)}
     })
