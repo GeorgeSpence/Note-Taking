@@ -8,9 +8,7 @@ const{ PrismaClient}= require ("@prisma/client");
 const { response } = require('express');
 const prisma = new PrismaClient();
 const port = 3000
-app.use(cors({
-    origin: 'http://localhost:80', 
-}));
+app.use(cors());
 app.get('/',async (req,res) =>{
     const allNotes = await prisma.note.findMany();
     res.status(200).json({
@@ -66,7 +64,7 @@ app.delete('/clear',async(req,res) => {
     });
 })
 app.delete('/delete',async(req,res) =>{
-   const{ id } = req.body.Note;
+   const{ id } = req.params.Note;
     const del = await prisma.note.delete({
         where: {id:parseInt(id)}
     })
